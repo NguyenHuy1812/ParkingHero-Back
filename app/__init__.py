@@ -75,7 +75,6 @@ def logout():
 @app.route("/")
 def index():
     print('alolalalala')
-    print ('hello user', current_user)
     # cur_building = Building.query.filter_by(id = 1). first()
     # cur_user = User.query.filter_by(id = 1).first()
     # print('currrr', cur_user.parkings , cur_building)
