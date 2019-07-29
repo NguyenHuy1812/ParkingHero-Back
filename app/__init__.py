@@ -11,7 +11,7 @@ from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 from flask_cors import CORS , cross_origin
 from flask_dance.contrib.facebook import make_facebook_blueprint
 from flask_migrate import Migrate
-from .form import SignupForm, SigninForm, EditProfileForm
+from app.forms import SignupForm, SigninForm, EditProfileForm
 import wtforms_json
 import uuid
 from sqlalchemy import func
