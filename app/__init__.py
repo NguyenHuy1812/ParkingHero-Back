@@ -8,7 +8,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from .models import db, User, OAuth, Token
 import requests
 from .models import db,User, login_manager,User,UserMixin ,ProfileUser, Building ,ma , UserSchema, Price, Transaction, Parking,BuildingSchema ,TransactionSchema
-from forms import SignupForm, SigninForm, EditProfileForm
+from .forms import SignupForm, SigninForm, EditProfileForm
 from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 from flask_cors import CORS , cross_origin
 from flask_dance.contrib.facebook import make_facebook_blueprint
