@@ -1,16 +1,16 @@
-from flask import flash
+from flask import flash, redirect    
 from flask_login import current_user, login_user
 from flask_dance.contrib.facebook import make_facebook_blueprint
 from flask_dance.consumer import oauth_authorized, oauth_error
 from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 from sqlalchemy.orm.exc import NoResultFound
-from .models import db, User, OAuth
-
+from .models import db, User, OAuth, Token
+import uuid
 
 blueprint = make_facebook_blueprint(
-    storage=SQLAlchemyStorage(OAuth, db.session, user=current_user)
+    storage=SQLAlchemyStorage(OAuth, db.session, user=current_user),
+   
 )
-
 
 # create/login local user on successful OAuth login
 @oauth_authorized.connect_via(blueprint)
@@ -19,7 +19,7 @@ def facebook_logged_in(blueprint, token):
         flash("Failed to log in.", category="error")
         return False
 
-    resp = blueprint.session.get("/me")
+    resp = blueprint.session.get("/me?field=name")
     if not resp.ok:
         msg = "Failed to fetch user info."
         flash(msg, category="error")
@@ -52,7 +52,14 @@ def facebook_logged_in(blueprint, token):
         flash("Successfully signed in.")
 
     # Disable Flask-Dance's default behavior for saving the OAuth token
-    return False
+    token_query = Token.query.filter_by(user_id=current_user.id)
+    try:
+        token = token_query.one()
+    except NoResultFound:
+        token = Token(user_id=current_user.id, uuid=str(uuid.uuid4().hex))    
+        db.session.add(token)
+        db.session.commit()
+    return redirect("http://localhost:3000/sign-in?api_key={}".format(token.uuid))
 
 
 # notify on OAuth provider error
