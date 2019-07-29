@@ -46,9 +46,9 @@ POSTGRES = {
 }
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:%(pw)s@%(host)s:\
-%(port)s/%(db)s' % POSTGRES
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://bbcmobyfqhjjpx:7fdd1b70c6ff1897b86ef9c3fa66bb35a89bcf49d30510f5fcf732b504eb3ac0@ec2-54-204-35-248.compute-1.amazonaws.com:5432/dobjk8f2invuc' 
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:%(pw)s@%(host)s:\
+# %(port)s/%(db)s' % POSTGRES
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://bbcmobyfqhjjpx:7fdd1b70c6ff1897b86ef9c3fa66bb35a89bcf49d30510f5fcf732b504eb3ac0@ec2-54-204-35-248.compute-1.amazonaws.com:5432/dobjk8f2invuc' 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["SECRET_KEY"] = '_5#y2L"F4Q8z\n\xec]/'
 
