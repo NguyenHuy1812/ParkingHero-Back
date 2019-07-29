@@ -260,9 +260,9 @@ def data_user():
         user_schema = UserSchema() 
         cur_buidling = Building.query.filter_by(user = current_user.id). first()
         cur_time = datetime.now()
-        total_trans = Transaction.query.filter(Transaction.building == cur_buidling.id, Transaction.time_check_out < (cur_time - timedelta(days = 1)) ).with_entities( Transaction.building, func.sum(Transaction.totalbill)).group_by(Transaction.building).all()
+        # total_trans = Transaction.query.filter(Transaction.building == cur_buidling.id, Transaction.time_check_out < (cur_time - timedelta(days = 1)) ).with_entities( Transaction.building, func.sum(Transaction.totalbill)).group_by(Transaction.building).all()
         out_put = user_schema.dump(current_user).data
-        return jsonify({'data': out_put, 'total': total_trans} ) 
+        return jsonify({'data': out_put} ) 
     else:
         form = EditProfileForm.from_json(request.json)
         data = request.get_json()
