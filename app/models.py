@@ -109,7 +109,6 @@ class Token(db.Model):
 
 
 class UserSchema(ma.ModelSchema):
-    @pre_load
     class Meta:
         model = User
         ordered = True
@@ -119,14 +118,14 @@ class UserSchema(ma.ModelSchema):
     parkings = ma.Nested('ParkingSchema', many = True , ordered = True)
 
 class BuildingSchema(ma.ModelSchema):
-    @pre_load
+    
     class Meta:
         model = Building
         ordered = True
     parkings = ma.Nested('ParkingSchema', many = True,ordered= True)
     totaltransaction = ma.Nested('TransactionSchema', many =True,ordered= True)
 class ParkingSchema(ma.ModelSchema):
-    @pre_load
+    
     class Meta:
         ordered = True
         model = Parking
