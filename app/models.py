@@ -115,7 +115,7 @@ class UserSchema(ma.ModelSchema):
         ordered = True
     building = ma.Nested('BuildingSchema', many = True, ordered= True)
     profiles = ma.Nested('ProfileSchema', many=True)
-    transactions = ma.Nested('TransactionSchema', many =True,ordered= True)
+    # transactions = ma.Nested('TransactionSchema', many =True,ordered= True)
     parkings = ma.Nested('ParkingSchema', many = True , ordered = True)
 
 class BuildingSchema(ma.ModelSchema):

@@ -262,11 +262,14 @@ def data_dumps():
 def data_user():
     if request.method == "GET": 
         user_schema = UserSchema() 
-        cur_buidling = Building.query.filter_by(user = current_user.id). first()
+        cur_buidling = Building.query.filter_by(user = current_user.id).first()
         cur_time = datetime.now()
+        cur_trans = Transaction.query.filter_by(owneruser = current_user.id).all()
+        trans_schema = TransactionSchema()
         # total_trans = Transaction.query.filter(Transaction.building == cur_buidling.id, Transaction.time_check_out < (cur_time - timedelta(days = 1)) ).with_entities( Transaction.building, func.sum(Transaction.totalbill)).group_by(Transaction.building).all()
-        out_put = user_schema.dumps(current_user)
-        return jsonify({'data': out_put} ) 
+        out_put = user_schema.dump(current_user).data
+        trans_out_put = trans_schema.dump(cur_trans).data
+        return jsonify({'data': out_put , 'transaction': trans_out_put}) 
     else:
         form = EditProfileForm.from_json(request.json)
         data = request.get_json()
@@ -327,7 +330,7 @@ def data_user_building():
         avaivale_lot = Parking.query.with_entities(Parking.building_id, func.count(Parking.status)).group_by(Parking.building_id).filter_by(status = 'Available').all()
         print (total_lot, avaivale_lot)
         building_schema = BuildingSchema(many = True , exclude = 'totaltransaction') 
-        out_put = building_schema.dumps(building_available)
+        out_put = building_schema.dump(building_available).data
         return jsonify({'data': out_put, 'total_lot': total_lot , 'avaivale_lot': avaivale_lot } ) 
     else:
         data = request.get_json()
