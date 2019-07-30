@@ -249,7 +249,12 @@ def signin():
         return 'login Please'
         
 
-
+@app.route("get/data", methods = ['POST', 'GET'])
+def data_dumps():
+    if request.method == "GET":
+        user_schema = UserSchema()
+        out_put = user_schema.dumps(current_user)
+        return jsonify({'dataaa': out_put})
 
 @app.route("/user/data", methods = ['POST', 'GET'])
 @login_required
