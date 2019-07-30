@@ -243,7 +243,7 @@ def signin():
                     db.session.commit()
                 return jsonify({ 'status': 'ok' , 'token': token.uuid})
         else:
-            return jsonify("form.errors")
+            return jsonify("form.errors!")
         return 'login Please'
         
 
