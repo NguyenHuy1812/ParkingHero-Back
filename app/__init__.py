@@ -236,7 +236,7 @@ def signin():
                 login_user(log_user)
                 token_query = Token.query.filter_by(user_id=current_user.id).first()
                 try:
-                    token = token_query.one()
+                    token = token_query
                 except NoResultFound:  
                     token = Token(user_id=current_user.id, uuid=str(uuid.uuid4().hex))    
                     db.session.add(token)
