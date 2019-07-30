@@ -265,7 +265,7 @@ def data_user():
         cur_buidling = Building.query.filter_by(user = current_user.id). first()
         cur_time = datetime.now()
         # total_trans = Transaction.query.filter(Transaction.building == cur_buidling.id, Transaction.time_check_out < (cur_time - timedelta(days = 1)) ).with_entities( Transaction.building, func.sum(Transaction.totalbill)).group_by(Transaction.building).all()
-        out_put = user_schema.dump(current_user).data
+        out_put = user_schema.dumps(current_user)
         return jsonify({'data': out_put} ) 
     else:
         form = EditProfileForm.from_json(request.json)
