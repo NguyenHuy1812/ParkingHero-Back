@@ -264,7 +264,7 @@ def data_user():
         user_schema = UserSchema() 
         cur_buidling = Building.query.filter_by(user = current_user.id).first()
         cur_time = datetime.now()
-        cur_trans = Transaction.query.filter_by(owneruser = current_user.id).all()
+        cur_trans = Transaction.query.filter_by(user = current_user.id).all()
         trans_schema = TransactionSchema()
         # total_trans = Transaction.query.filter(Transaction.building == cur_buidling.id, Transaction.time_check_out < (cur_time - timedelta(days = 1)) ).with_entities( Transaction.building, func.sum(Transaction.totalbill)).group_by(Transaction.building).all()
         out_put = user_schema.dump(current_user).data
