@@ -366,7 +366,7 @@ def job1():
                 db.session.commit()
 
 
-@app.route("testing")                        
+@app.route("/testing", methods = ['GET', 'POST'])                     
 def data_user_test():
     if request.method == "GET": 
         user_schema = UserSchema() 
