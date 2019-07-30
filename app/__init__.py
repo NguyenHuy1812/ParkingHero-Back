@@ -149,7 +149,7 @@ def list_order():
     if request.method == "GET": 
         trans_schema = TransactionSchema()
         print(current_user)
-        out_put = trans_schema.dump(current_user).data
+        out_put = trans_schema.dumps(current_user).data
         return jsonify({'data': out_put} ) 
 
 
@@ -259,7 +259,7 @@ def data_user():
         cur_buidling = Building.query.filter_by(user = current_user.id). first()
         cur_time = datetime.now()
         # total_trans = Transaction.query.filter(Transaction.building == cur_buidling.id, Transaction.time_check_out < (cur_time - timedelta(days = 1)) ).with_entities( Transaction.building, func.sum(Transaction.totalbill)).group_by(Transaction.building).all()
-        out_put = user_schema.dump(current_user).data
+        out_put = user_schema.dumps(current_user).data
         return jsonify({'data': out_put} ) 
     else:
         form = EditProfileForm.from_json(request.json)
@@ -321,7 +321,7 @@ def data_user_building():
         avaivale_lot = Parking.query.with_entities(Parking.building_id, func.count(Parking.status)).group_by(Parking.building_id).filter_by(status = 'Available').all()
         print (total_lot, avaivale_lot)
         building_schema = BuildingSchema(many = True) 
-        out_put = building_schema.dump(building_available).data
+        out_put = building_schema.dumps(building_available).data
         return jsonify({'data': out_put, 'total_lot': total_lot , 'avaivale_lot': avaivale_lot } ) 
     else:
         data = request.get_json() 
@@ -332,7 +332,7 @@ def data_user_building_parking(idx):
     if request.method == "GET" : 
         current_building = Building.query.filter_by(id = idx).first()
         building_schema = BuildingSchema() 
-        out_put = building_schema.dump(current_building).data
+        out_put = building_schema.dumps(current_building).data
         return jsonify({'data': out_put} ) 
   
 @app.route("/manage/building", methods = ['POST', 'GET'])
@@ -340,7 +340,7 @@ def manage_building():
     if request.method == 'GET':
         current_building = Building.query.filter_by(user = current_user.id).first()
         building_schema = BuildingSchema() 
-        out_put = building_schema.dump(current_building).data
+        out_put = building_schema.dumps(current_building).data
         return jsonify({'data': out_put } ) 
     else:
         return jsonify('helo')

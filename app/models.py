@@ -134,13 +134,11 @@ class ParkingSchema(ma.ModelSchema):
     owneruser = ma.Nested('UserSchema', exclude=('building', 'parkings','transaction'))
     parkinglot = ma.Nested('BuildingSchema', exclude = ('parkings' , 'transaction'))
 class TransactionSchema(ma.ModelSchema):
-    @pre_load
     class Meta:
         model = Transaction
         ordered = True
 
 class ProfileSchema(ma.ModelSchema):
-    @pre_load
     class Meta:
         model = ProfileUser
         ordered = True
