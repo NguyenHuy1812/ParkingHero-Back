@@ -365,30 +365,3 @@ def job1():
                 cur_parking.in_use_status = 'not_use'
                 db.session.commit()
 
-
-@app.route("/testing", methods = ['GET', 'POST'])                     
-def data_user_test():
-    if request.method == "GET": 
-        user_schema = UserSchema() 
-        cur_buidling = Building.query.filter_by(user = current_user.id). first()
-        cur_time = datetime.now()
-        # total_trans = Transaction.query.filter(Transaction.building == cur_buidling.id, Transaction.time_check_out < (cur_time - timedelta(days = 1)) ).with_entities( Transaction.building, func.sum(Transaction.totalbill)).group_by(Transaction.building).all()
-        out_put = user_schema.dumps(current_user)
-        return jsonify({'data': out_put} ) 
-    else:
-        form = EditProfileForm.from_json(request.json)
-        data = request.get_json()
-        print('datataatatfiatatatat', data)
-        if form.validate():
-            cur_profile = ProfileUser.query.filter_by(user_id = current_user.id).first()
-            cur_profile.first_name = form.firstname.data
-            cur_profile.last_name = form.lastname.data
-            current_user.email = data['email']
-            cur_profile.address = data['address']
-            cur_profile.phone = data['phone']
-            cur_profile.avatar_url = data['avatar']
-            db.session.commit()
-            return jsonify("success!")
-        else:
-            return jsonify(form.errors)
-        return jsonify({'data': data})
