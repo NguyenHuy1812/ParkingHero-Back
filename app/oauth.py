@@ -4,7 +4,7 @@ from flask_dance.contrib.facebook import make_facebook_blueprint
 from flask_dance.consumer import oauth_authorized, oauth_error
 from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 from sqlalchemy.orm.exc import NoResultFound
-from .models import db, User, OAuth, Token
+from .models import db, User, OAuth, Token , ProfileUser
 import uuid
 
 blueprint = make_facebook_blueprint(
@@ -46,6 +46,10 @@ def facebook_logged_in(blueprint, token):
         oauth.user = user
         # Save and commit our database models
         db.session.add_all([user, oauth])
+        db.session.commit()
+        new_add_user = User.query.filter_by(name = info["name"]).first()
+        new_profile = ProfileUser(user_id = new_add_user.id)
+        db.session.add(new_profile)
         db.session.commit()
         # Log in the new local user account
         login_user(user)
