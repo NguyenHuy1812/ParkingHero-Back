@@ -116,7 +116,7 @@ def checkin(idx):
     cur_parking.in_use_status = 'using'
     new_transaction = Transaction(user = current_user.id, building = cur_building,
             parking = cur_parking.id , time_check_in = time , price = cur_parking.price,
-    ticket_qrcode = qrcode((str(current_user.id)+str(cur_building) + str(random.randint(1,101)) + str(cur_parking.id)), icon_img='https://www.agner.io/icon.jpg', fill_color='blue' ))
+    ticket_qrcode = "http://vairen.aien.vn/images/aien-imgs/huongdan.png")
     db.session.add(new_transaction)
     db.session.commit()
     return jsonify("Success Checkin!")
