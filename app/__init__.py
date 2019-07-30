@@ -290,7 +290,7 @@ def addbuilding():
     if request.method == 'POST':
         data = request.get_json()
         print('datattatatatat', data['buildingname'], current_user)
-        newbuilding = Building(user = current_user.id, buildingname = data['buildingname'], buildingcontact = data['buildingcontact'], location = data['location'], description = data['description'], totalparkingslot = data['totalparkingslot'])
+        newbuilding = Building(user = current_user.id, buildingname = data['buildingname'], buildingcontact = data['buildingcontact'], location = data['location'], description = data['description'], street_location = data['street'])
         db.session.add(newbuilding)
         db.session.commit()
         return jsonify(data)

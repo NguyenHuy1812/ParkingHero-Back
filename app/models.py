@@ -72,6 +72,7 @@ class Building(db.Model):
     totalparkingslot = db.Column(db.Integer)
     parkings = db.relationship('Parking', backref = 'parkinglot', order_by = 'Parking.id')
     totaltransaction = db.relationship('Transaction', backref= 'totaltrans', order_by ='desc(Transaction.id)')
+    street_location = db.Column(db.String)
 
 class User(UserMixin, db.Model):
     __tablename__='users'
