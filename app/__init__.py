@@ -327,7 +327,7 @@ def data_user_building():
         avaivale_lot = Parking.query.with_entities(Parking.building_id, func.count(Parking.status)).group_by(Parking.building_id).filter_by(status = 'Available').all()
         print (total_lot, avaivale_lot)
         building_schema = BuildingSchema(many = True) 
-        out_put = building_schema.dump(building_available).data
+        out_put = building_schema.dumps(building_available)
         return jsonify({'data': out_put, 'total_lot': total_lot , 'avaivale_lot': avaivale_lot } ) 
     else:
         data = request.get_json() 
