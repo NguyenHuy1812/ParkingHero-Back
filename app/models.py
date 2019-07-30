@@ -122,7 +122,7 @@ class BuildingSchema(ma.ModelSchema):
         model = Building
         ordered = True
     parkings = ma.Nested('ParkingSchema', many = True,ordered= True)
-    totaltransaction = ma.Nested('TransactionSchema', many =True,ordered= True)
+    totaltransaction = ma.Nested('TransactionSchema', many =True,ordered= True, exclude('totaltransaction'))
 class ParkingSchema(ma.ModelSchema):
     class Meta:
         ordered = True
