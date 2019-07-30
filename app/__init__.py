@@ -108,7 +108,6 @@ def booking():
             db.session.commit()
         return jsonify ("You are booking this lot")
 @app.route("/parking/checkin/<idx>", methods = ['POST', 'GET'])
-@login_required
 def checkin(idx):
     data = request.get_json()
     cur_parking = Parking.query.filter_by(id = data['idx']).first()
@@ -122,7 +121,6 @@ def checkin(idx):
     db.session.commit()
     return jsonify("Success Checkin!")
 @app.route("/parking/<park_id>/checkout/<trans_id>", methods = ['POST', 'GET'])
-@login_required
 def checkout(park_id , trans_id):
     data = request.get_json()
     cur_parking = Parking.query.filter_by(id = data['park_id']).first()
@@ -147,7 +145,6 @@ def checkout(park_id , trans_id):
     return jsonify("Success Checkout!")
 
 @app.route("/parking/order", methods = ['POST', 'GET'])
-@login_required
 def list_order():
     if request.method == "GET": 
         trans_schema = TransactionSchema()
@@ -160,7 +157,6 @@ def list_order():
 
 
 @app.route("/addparking", methods = ['POST', 'GET'])
-@login_required
 def addParking():
     if request.method == 'POST':
         data = request.get_json()
@@ -238,7 +234,7 @@ def signin():
                 return jsonify({'error': "wrong password"})
             else:
                 login_user(log_user)
-                token_query = Token.query.filter_by(user_id=current_user.id)
+                token_query = Token.query.filter_by(user_id=current_user.id).first()
                 try:
                     token = token_query.one()
                 except NoResultFound:  
