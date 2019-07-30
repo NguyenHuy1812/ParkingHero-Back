@@ -326,11 +326,11 @@ def data_user_building():
         total_lot = Parking.query.with_entities(Parking.building_id, func.count(Parking.status)).group_by(Parking.building_id).all()
         avaivale_lot = Parking.query.with_entities(Parking.building_id, func.count(Parking.status)).group_by(Parking.building_id).filter_by(status = 'Available').all()
         print (total_lot, avaivale_lot)
-        building_schema = BuildingSchema(many = True) 
+        building_schema = BuildingSchema(many = True , exclude = 'totaltransaction') 
         out_put = building_schema.dumps(building_available)
         return jsonify({'data': out_put, 'total_lot': total_lot , 'avaivale_lot': avaivale_lot } ) 
     else:
-        data = request.get_json() 
+        data = request.get_json()
         print('datattatatatat', data)
     # datastore = json.loads(data)
 @app.route("/data/building/<idx>", methods = ['POST', 'GET'])
