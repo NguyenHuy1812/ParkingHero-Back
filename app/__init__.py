@@ -187,7 +187,11 @@ def edit_parking(idx):
 def deleteParking():
     data = request.get_json()
     delete_park = Parking.query.filter_by(id = int(data['parking_id'])).first()
-    cur_transaction.status = 'cancel_by_admin'
+    cur_transaction = Transaction.query.filter_by(parking =int(data['parking_id']), status = 'Checkin').first()
+    if cur_transaction is not None:
+        cur_transaction.status = 'cancel_by_admin'
+    else:
+        pass
     db.session.delete(delete_park)
     db.session.commit()
     return jsonify('hello deleteddddd')
