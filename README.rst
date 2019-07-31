@@ -1,114 +1,75 @@
-Flask-Dance Example App: Facebook SQLAlchemy Edition
-====================================================
+<p align="center">
+<a href="https://hero-park.netlify.com/">
+<img src="assets/preview.png" width="250" />
+</a>
+</p>
 
-This repository provides an example of how to use `Flask-Dance`_ with
-a SQLAlchemy storage. This particular repository uses Facebook as an
-OAuth provider, and it wires together the following Flask extensions:
+<h1 align="center" style="border-bottom: none !important; margin-bottom: 5px !important;"><a href="https://hero-park.netlify.com/">Hero Parking!</a></h1>
+<p align="center">
+  <a href="#">
+    <img src="https://img.shields.io/badge/License-MIT-brightgreen.svg" />
+  </a>
+  <a href="https://twitter.com/designrevision">
+    <img src="https://img.shields.io/twitter/follow/DesignRevision.svg?style=social&label=Follow" />
+  </a>
+</p>
 
-* `Flask-Dance`_
-* `Flask-SQLAlchemy`_
-* `Flask-Login`_
+<p align="center">
+An awesome app, help users to finding - booking - sharing the parking lots together!!!!!
+</p>
+<p align="center"> Create with ReactJS for front-end and Python for back-end!</p>
+<p align="center">
+  <a href=" https://hero-park.netlify.com/">
+    <img height="55px" src="assets/btn-live-preview.png" />
+  </a>
+  <a href="https://hero-park.netlify.com/">
+    <img height="55px" src="assets/btn-learn-more.png" />
+  </a>
+</p>
 
-You can run this code locally, or deploy it to Heroku_ to test it out.
+<br />
 
-|heroku-deploy|
+<p align="center">
+<a href="https://hero-park.netlify.com/">
+<img src="assets/signin.gif" width="650" />
+</a>
+</p>
 
-Local Installation
-``````````````````
+<br />
 
-Step 1: Get OAuth credentials from Facebook
--------------------------------------------
-Visit https://developers.facebook.com/apps to register an
-app on Facebook. You must set the application's authorization
-callback URL to ``http://127.0.0.1:5000/login/facebook/authorized``.
 
-Once you've registered your application on Facebook, Facebook will give you an
-app ID and app secret, which we'll use in step 4.
+<br />
 
-Step 2: Install code and dependencies
--------------------------------------
-Run the following commands on your computer::
 
-    git clone https://github.com/singingwolfboy/flask-dance-facebook-sqla.git
-    cd flask-dance-facebook-sqla
-    python3 -m venv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
+### Project Main Structure
 
-These commands will clone this git repository onto your computer,
-create a `virtual environment`_ for this project, activate it, and install
-the dependencies listed in ``requirements.txt``.
+- **Landing- Page**: Basic information of the project ( includes : contact, imgs, introduce...)
+- **Sign in - Sign up**: Handle Sign-in and sign-up account!
+- **Hero Park Dashboard**:After sign in success, user can access to the dashboard, where user can:
+### With normal user
+- Finding nearly building with user location, with directly information that which building avalable parking lot or not.
+- Booking the available parking lot with correct information about price, location of the parking lot to keep the lot.
+- After booking, user allow 15 minutes to keep the booking, and not be charge any fee for this booking , user allow to reverse all booking that they already booked on this time without money charge.
+- After 15 minutes, if user decide to click "check-in" , they will have a transaction and ticket to check-in with the building parking lot, and they will be charge at this time.
+- User can see the current booking lot and the time they check-in.
+- After finish using the parking lot, user can click to the button "Check-out" to finish the booking, transcation will give back the price that user must pay, and the parking lot will return to "Available" for other users.
+    <br />
 
-Also note that if you have trouble installing ``psycopg2``, it's OK to
-skip it. That dependency is only needed if you are using PostgreSQL
-for your database, and if you're running locally, then you can use
-SQLite instead, which is simpler. SQLite is also the default option,
-so you don't need to reconfigure anything.
+### With Buidling owner
+- Can create the building for other user can see and book the "Available" lots.
+- Can easy to create | edit | delete the parking lot information.
+- Can see the transaction of their building.
+    <br />
 
-Step 3: Create the database
----------------------------
-Since we're storing OAuth data in the SQLAlchemy storage, we need to
-create the database to hold that data. Fortunately, this project includes
-basic command line support, so doing so is pretty straightforward.
-Run this code::
 
-    flask createdb
 
-If it worked, you should see the message "Database tables created".
+<a href="https://hero-park.netlify.com/">
+<img src="assets/book.gif" width="650" />
+</a>
+</p>
 
-Step 4: Set environment variables
----------------------------------
-Many applications use `environment variables`_ for configuration, and
-Flask-Dance is no exception. You'll need to set the following environment
-variables:
 
-* ``FLASK_APP``: set this to ``app``. Since this is the default value, you
-  can leave it unset it you prefer.
-* ``FLASK_SECRET_KEY``: set this to a random string. This is used for
-  signing the Flask session cookie.
-* ``FACEBOOK_OAUTH_CLIENT_ID``: set this to the client ID
-  you got from Facebook.
-* ``FACEBOOK_OAUTH_CLIENT_SECRET``: set this to the client secret
-  you got from Facebook.
-* ``OAUTHLIB_INSECURE_TRANSPORT``: set this to ``true``. This indicates that
-  you're doing local testing, and it's OK to use HTTP instead of HTTPS for
-  OAuth. You should only do this for local testing.
-  Do **not** set this in production! [`oauthlib docs`_]
 
-The easiest way to set these environment variables is to define them in
-an ``.env`` file. You can then install the `python-dotenv`_ package
-to make Flask automatically read this file when you run the dev server.
-This repository has a ``.env.example`` file that you can copy to
-``.env`` to get a head start.
 
-Step 5: Run your app and login with Facebook!
----------------------------------------------
-If you're setting environment variables manually, run your app using the
-``flask`` command::
 
-    flask run
 
-Then, go to http://localhost:5000/ to visit your app and log in with Facebook!
-
-If your application isn't loading the environment variables from your ``.env``
-file, then you need to install the `python-dotenv`_ package using ``pip``::
-
-    pip install python-dotenv
-
-Once the package is installed, try the ``flask run`` command again
-
-.. _Flask: http://flask.pocoo.org/docs/
-.. _Flask-Dance: http://flask-dance.readthedocs.org/
-.. _Flask-SQLAlchemy: http://flask-sqlalchemy.pocoo.org/
-.. _Flask-Login: https://flask-login.readthedocs.io
-.. _Facebook: https://facebook.com/
-.. _Heroku: https://www.heroku.com/
-.. _environment variables: https://en.wikipedia.org/wiki/Environment_variable
-.. _oauthlib docs: http://oauthlib.readthedocs.org/en/latest/oauth2/security.html#envvar-OAUTHLIB_INSECURE_TRANSPORT
-.. _python-dotenv: https://github.com/theskumar/python-dotenv
-.. _virtual environment: https://docs.python.org/3.7/library/venv.html
-.. _Fork this GitHub repo: https://help.github.com/articles/fork-a-repo/
-
-.. |heroku-deploy| image:: https://www.herokucdn.com/deploy/button.png
-   :target: https://heroku.com/deploy
-   :alt: Deploy to Heroku
